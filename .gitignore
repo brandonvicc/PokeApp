@@ -1,0 +1,15 @@
+# Visual Studio
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Build directories
+bin/
+obj/
+
+# Dependency directories
+node_modules/
+
+# Log files
+*.log
