@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux'
 import './App.css';
 import Pokedex from './components/PokeDex';
+import CurrPokemonInfo from './components/CurrPokemonInfo';
+import LoadingSpinner from './components/LoadingSpinner'
 
 function App() {
     const BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
@@ -12,13 +14,12 @@ function App() {
     }, [currId]);
 
     const contents = !pokemons
-        ? <div className="spinner-border text-danger" role="status">
-            <span className="visually-hidden">Loading...</span>
-        </div>
+        ? <LoadingSpinner />
         : <>
             <Pokedex pokemon={pokemons} />
+            <CurrPokemonInfo pokemon={pokemons} />
         </>
-        
+
 
     return (
         <div>
@@ -27,15 +28,15 @@ function App() {
             {contents}
         </div>
     );
-    
+
     async function populatePokemon() {
         const response = await fetch(BASE_URL + currId.currentId);
         const data = await response.json();
         setPokemons(data);
-        
+
     }
 
-    
+
 }
 
 export default App;
