@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
-import { incrementId, decrementId } from './features/currentId/currentIdSlice'
+import { useSelector } from 'react-redux'
 import './App.css';
-import CurrentPokemon from './components/CurrentPokemon'
+import Pokedex from './components/PokeDex';
 
 function App() {
     const BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
     const [pokemons, setPokemons] = useState(null);
-    const dispatch = useDispatch()
     let currId = useSelector((state) => state.currentId)
     useEffect(() => {
         populatePokemon()
@@ -15,23 +13,8 @@ function App() {
 
     const contents = !pokemons
         ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-        //: <table className="table table-striped" aria-labelledby="tableLabel">
-        //    <thead>
-        //        <tr>
-        //            <th>Name</th>
-        //        </tr>
-        //    </thead>
-        //    <tbody>
-        //        {pokemons.map(pokemon =>
-        //            <tr key={pokemon.name}>
-        //            </tr>
-        //        )}
-        //    </tbody>
-        //</table>;
         : <>
-            <CurrentPokemon pokemon={pokemons} />
-            <button onClick={nextPokemon}>Next Pokemon</button>
-            <button onClick={prevPokemon}>Previous Pokemon</button>
+            <Pokedex pokemon={pokemons} />
         </>
         
 
@@ -50,12 +33,7 @@ function App() {
         
     }
 
-    function nextPokemon() {
-        dispatch(incrementId())
-    }
-    function prevPokemon() {
-        dispatch(decrementId())
-    }
+    
 }
 
 export default App;
